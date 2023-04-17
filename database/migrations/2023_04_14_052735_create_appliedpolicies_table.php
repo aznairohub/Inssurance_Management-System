@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('firsts', function (Blueprint $table) {
+        Schema::create('appliedpolicies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->mediumText('permanentaddress');
-            $table->mediumText('currentaddress');
-            $table->string('dob');
-            $table->string('email');
-            $table->bigInteger('contactno');
-            $table->string('password');
+            $table->string('idproof');
+            $table->string('photo');
             $table->string('userid');
-            $table->string('status')->default('pending');
+            $table->string('policiid');
+            $table->string('date');
+            $table->string('status')->default('applied');
             $table->timestamps();
         });
     }
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('firsts');
+        Schema::dropIfExists('appliedpolicies');
     }
 };

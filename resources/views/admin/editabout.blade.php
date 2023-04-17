@@ -1,28 +1,34 @@
 @extends('admin.header_footer')
 @section('admin-body')
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-8">
-            @foreach($about as $value)
-            <form action="/editaboutaction/{{$value->id}}" method="post">
-                @csrf
-                <table>
-                    <tr>
-                        <td>Title</td>
-                        <td><input type="text" name="title" id="title" value="{{$value->title}}"></td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td><textarea name="description" id="description" value="{{$value->description}}"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Add" name="submit"></td>
-                    </tr>
-                </table>
-            </form>
-            @endforeach
+<section class="content ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">EDIT ABOUT</h3>
+                    </div>
+                    @foreach($about as $value)
+                    <form action="/editaboutaction/{{$value->id}}" method="post">
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputTitle">TITLE</label>
+                                <input type="text" class="form-control" name="title" id="title" value="{{$value->title}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputDescription">DESCRIPTION</label>
+                                <textarea name="description" class="form-control" id="description" value="{{$value->description}}">{{$value->description}}</textarea>
+                            </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">EDIT</button>
+                        </div>
+                    </form>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection

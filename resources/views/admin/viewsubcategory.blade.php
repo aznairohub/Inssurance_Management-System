@@ -9,7 +9,7 @@
                     <div class="card-header">
                        <h3 class="card-title">VIEW SUBCATEGORY</h3>
                     </div>
-                <table id="example2" class="table table-bordered table-hover dataTable ">
+                <table id="example2" class="table py-3 table-bordered table-hover dataTable ">
                     <tr>
                         <th>ID</th>
                         <th>CATEGORY</th>

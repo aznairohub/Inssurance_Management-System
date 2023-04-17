@@ -6,11 +6,13 @@ use App\Models\category;
 use App\Models\subcategory;
 use App\Models\policy;
 use App\Models\about;
-use App\Models\profile;
 use App\Models\registrate;
 use App\Models\contactu;
 use App\Models\first;
 use App\Models\ticket;
+use App\Models\admin;
+USE App\Models\appliedpolicy;
+
 
 use Illuminate\Http\Request;
 
@@ -22,11 +24,11 @@ class admincontroller extends Controller
     }
     public function index()
     {
-        $data['policy']=policy::count();
-        $data['first']=first::count();
-        $data['registrate']=registrate::count();
-        $data['ticket']=ticket::count();
-        return view('admin.index',$data);
+        $data['policy'] = policy::count();
+        $data['first'] = first::count();
+        $data['registrate'] = registrate::count();
+        $data['ticket'] = ticket::count();
+        return view('admin.index', $data);
     }
     public function addcategory()
     {
@@ -92,9 +94,9 @@ class admincontroller extends Controller
     {
         $data['category'] = category::get();
         $data['subcategory'] = subcategory::join('categories', 'categories.id', '=', 'subcategories.category')
-        ->where('subcategories.id', $id)
-        ->select('subcategories.id', 'subcategories.subcategoryname', 'categories.category')
-        ->get();
+            ->where('subcategories.id', $id)
+            ->select('subcategories.id', 'subcategories.subcategoryname', 'categories.category')
+            ->get();
         return view('admin.editsubcategory', $data);
     }
     public function editsubcategoryaction(Request $req, $id)
@@ -120,27 +122,27 @@ class admincontroller extends Controller
     }
     public function addpolicyaction(Request $req)
     {
-      $category=$req->input('category');
-      $subcategory=$req->input('subcategory');
-      $policyname=$req->input('policyname');
-      $sumassured=$req->input('sumassured');
-      $premium=$req->input('premium');
-      $tenure=$req->input('tenure');
-      $data=[
-        'category'=>$category,
-        'subcategory'=>$subcategory,
-        'policyname'=>$policyname,
-        'sumassured'=>$sumassured,
-        'premium'=>$premium,
-        'tenure'=>$tenure
-      ];
-      policy::insert($data);
-      return redirect('/viewpolicy');
+        $category = $req->input('category');
+        $subcategory = $req->input('subcategory');
+        $policyname = $req->input('policyname');
+        $sumassured = $req->input('sumassured');
+        $premium = $req->input('premium');
+        $tenure = $req->input('tenure');
+        $data = [
+            'category' => $category,
+            'subcategory' => $subcategory,
+            'policyname' => $policyname,
+            'sumassured' => $sumassured,
+            'premium' => $premium,
+            'tenure' => $tenure
+        ];
+        policy::insert($data);
+        return redirect('/viewpolicy');
     }
     public function viewpolicy()
     {
         $data['policy'] = policy::join('categories', 'categories.id', '=', 'policies.category')->get();
-        return view('admin.viewpolicy',$data);
+        return view('admin.viewpolicy', $data);
     }
     public function deletepolicy($id)
     {
@@ -149,7 +151,8 @@ class admincontroller extends Controller
     }
     public function editpolicy($id)
     {
-        $data['policy'] = policy::where('id',$id)->get();
+        $data['category'] = category::get();
+        $data['policy'] = policy::where('id', $id)->get();
         return view('admin.editpolicy', $data);
     }
     public function editpolicyaction(Request $req, $id)
@@ -215,85 +218,116 @@ class admincontroller extends Controller
     }
     public function viewprofile()
     {
-        //$data['profile']=profile::where('id',$id)->get();
-        return view('admin.viewprofile');
+        $data['admin']=admin::get();
+        return view('admin.viewprofile',$data);
+    }
+    public function viewprofileaction(Request $req)
+    {
+       $username=$req->input('username');
+       $password=$req->input('password');
+       $data=[
+          'username'=>$username,
+          'password'=>$password
+       ];
+       admin::where('id',1)->update($data);
+       return redirect('/viewprofile');
     }
     public function viewuser()
     {
-        $data['registrate']=registrate::get();
-        return view('admin.viewuser',$data);
+        $data['registrate'] = registrate::get();
+        return view('admin.viewuser', $data);
     }
     public function viewpolicies()
     {
-        $data['policy']=policy::join('categories', 'categories.id', '=', 'policies.category')->get();
-        return view('admin.viewpolicy',$data);
+        $data['policy'] = policy::join('categories', 'categories.id', '=', 'policies.category')->get();
+        return view('admin.viewpolicy', $data);
     }
     public function viewpolicyholders()
     {
-        $id=session('sess');
-        $data['first']=first::where('userid',$id)->get();
-        return view('admin.viewpolicyholders',$data);
+        $data['result'] = appliedpolicy::join('registrates', 'registrates.id', '=', 'appliedpolicies.userid')
+            ->join('policies', 'policies.id', '=', 'appliedpolicies.policiid')
+            ->join('categories', 'categories.id', '=', 'policies.category')
+            ->select(
+                'policies.subcategory',
+                'policies.policyname',
+                'policies.sumassured',
+                'policies.premium',
+                'policies.tenure',
+                'appliedpolicies.id',
+                'appliedpolicies.idproof',
+                'appliedpolicies.photo',
+                'appliedpolicies.date',
+                'appliedpolicies.status',
+                'categories.category',
+                'registrates.name',
+                'registrates.email',
+                'registrates.phno'
+            )
+            ->get();
+        return view('admin.viewpolicyholders', $data);
     }
     public function userregistration()
     {
-        $data['registrate']=registrate::get();
-        return view('admin.viewuser',$data);
+        $data['registrate'] = registrate::get();
+        return view('admin.viewuser', $data);
     }
     public function viewcomplaints()
     {
-        $data['contactu']=contactu::get();
-        return view('admin.viewcomplaints',$data);
+        $data['contactu'] = contactu::get();
+        return view('admin.viewcomplaints', $data);
     }
     public function viewtickets()
     {
-        $data['ticket']=ticket::get();
-        return view('admin.viewtickets',$data);
+        $data['ticket'] = ticket::get();
+        return view('admin.viewtickets', $data);
     }
     public function changeact($id)
     {
-        $data['ticket']=ticket::where('id',$id)->get();
-        return view('admin.changeact',$data);
+        $data['ticket'] = ticket::where('id', $id)->get();
+        return view('admin.changeact', $data);
     }
-    public function changeaction(Request $req,$id)
+    public function changeaction(Request $req, $id)
     {
-       $data=[
-           'status'=>"ticket closed"
-       ];
-       ticket::where('id',$id)->update($data);
+        $data = [
+            'status' => "ticket closed"
+        ];
+        ticket::where('id', $id)->update($data);
         return redirect('/viewtickets');
     }
-    //public function profileaction(Request $req,$id)
+    //public function view_subcategory(Request $req)
     //{
-       // $username=$req->input('username');
-       // $password=$req->input('password');
-       // $data=[
-
-        //]
-    //}
-  //public function view_subcategory(Request $req)
-    //{
-      //  $category = $req->input('id');
-      //  return $data['subcategory']=subcategory::where('category',$category)->get();
-      //  return response()->json([
-      //  'subcategory' => $data
-     //   ]);
+    //  $category = $req->input('id');
+    //  return $data['subcategory']=subcategory::where('category',$category)->get();
+    //  return response()->json([
+    //  'subcategory' => $data
+    //   ]);
     //}
     public function approvedpolicyholders($id)
     {
-        $data=['status'=>"approve"];
-        first::where('id',$id)->update($data);
+        $data = ['status' => "approved"];
+        appliedpolicy::where('id', $id)->update($data);
         return redirect('/viewpolicyholders');
     }
     public function declinedpolicyholders($id)
     {
-        $data=['status'=>"decline"];
-        first::where('id',$id)->update($data);
+        $data = ['status' => "declined"];
+        appliedpolicy::where('id', $id)->update($data);
         return redirect('/viewpolicyholders');
     }
     public function viewsub($id)
     {
         $subcategories = subcategory::where('category', $id)->get();
         return response()->json($subcategories);
-      
+    }
+    public function adminloginaction(Request $req)
+    {
+        $username = $req->input('username');
+        $password = $req->input('password');
+        $data = admin::where('username', $username)->where('password', $password)->first();
+        if (isset($data)) {
+            return redirect('/adminindex');
+        } else {
+            return redirect('/admin')->with('error', 'invalid  username or Password');
+        }
     }
 }

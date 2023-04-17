@@ -196,10 +196,10 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="/viewcomplaints" class="nav-link">
+                            <a href="/viewtickets" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    View Complaints
+                                    View Tickets
                                 </p>
                             </a>
                         <li class="nav-item">

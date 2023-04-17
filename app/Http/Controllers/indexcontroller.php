@@ -64,7 +64,7 @@ class indexcontroller extends Controller
     public function userloginaction( Request $req)
     {
         $email=$req->input('email');
-        $password=$req->input('password');
+        $password=$req->input('pwd');
         $data=registrate::where('email',$email)->where('pwd',$password)->first();
         if(isset($data))
         {

@@ -22,7 +22,7 @@
         <div class="row py-3 ">
 
           <label>Password</label>
-          <input type="password" name="password" class="form-control" id="password" placeholder="Enter Your Password">
+          <input type="password" name="pwd" class="form-control" id="pwd" placeholder="Enter Your Password">
         </div>
         <div class="row py-3 ">
           <button class="btn btn-primary w-100" type="submit">

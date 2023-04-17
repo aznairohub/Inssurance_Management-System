@@ -14,7 +14,6 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Phno</th>
                     </tr>
                     @foreach($registrate as $value)
@@ -22,7 +21,6 @@
                         <td>{{$value->id}}</td>
                         <td>{{$value->name}}</td>
                         <td>{{$value->email}}</td>
-                        <td>{{$value->password}}</td>
                         <td>{{$value->phno}}</td>
                     </tr>
                     @endforeach

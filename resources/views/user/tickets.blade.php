@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4"></div>
-            <div class="col-md-6">
+            <div class="col-md-6 py-5">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">TICKETS</h3>
@@ -16,7 +16,7 @@
                                 <label for="exampleInputTitle">TITLE</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group py-4">
                                 <label for="exampleInputDescription">DESCRIPTION</label>
                                 <textarea name="description" class="form-control" id="description"></textarea>
                             </div>

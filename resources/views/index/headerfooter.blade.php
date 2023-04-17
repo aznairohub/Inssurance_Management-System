@@ -74,7 +74,7 @@
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
           <div class="dropdown-menu bg-light border-0 m-0">
             <a href="/userlogin" class="dropdown-item">User Login</a>
-            <a href="/adminlogin" class="dropdown-item">Admin Login</a>
+            <a href="/admin" class="dropdown-item">Admin Login</a>
           </div>
         </div>
         <a href="/contactus" class="nav-item nav-link">Contact Us</a>

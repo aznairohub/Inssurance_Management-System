@@ -7,22 +7,22 @@
                 We Provide professional Insurance Services
             </h1>
         </div>
-        <div class="row g-4 justify-content-center">
+        <div class="row justify-content-center">
             @foreach($policy as $value)
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                <div class="service-item rounded h-100 p-5">
-                    <div class="d-flex align-items-center ms-n5 mb-4">
-                        <div class="service-icon flex-shrink-0 bg-primary rounded-end me-4">
+            <div class="col-lg-4 w-30 ">
+                <div class="service-item rounded h-100 p-5 bg-primary text-light ">
+                    <div class="d-flex align-items-center  mb-4  w-100">
+                        <div class="service-icon flex-shrink-0  bg-info rounded-end me-4">
                             <img class="img-fluid" src="img/icon/icon-10-light.png" alt="">
                         </div>
                         <center>
-                            <h4 class="mb-0">POLICY NAME : {{$value->policyname}}</h4>
+                            <p class="mb-0 text-uppercase">POLICY NAME : {{$value->policyname}}</p>
                         </center>
                         <!-- <h4 class="mb-0">POLICY NAMECATEGORY : {{$value->category}}</h4> -->
                     </div>
                     <p class="mb-4">CATEGORY : {{$value->category}}</p>
                     <p class="mb-4">SUB CATEGORY : {{$value->subcategory}}</p>
-                    <a class="btn btn-light px-3" href="apply">Apply</a>
+                    <a class="btn btn-light px-3" href="apply/{{$value->id}}">Apply</a>
                 </div>
             </div>
             @endforeach

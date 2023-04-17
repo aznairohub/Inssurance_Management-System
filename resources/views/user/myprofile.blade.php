@@ -1,47 +1,68 @@
 @extends('user.headerfooter')
 @section('user-body')
-<div class="container-xxl py-5">
-      <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
-            <body class="bg-primary">
-            <center>
-            @foreach($registrate as $value)
-            <form action="/myprofileaction/{{$value->id}}" method="post">
-              @csrf
-              <div class="row g-3">
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="text" name="name" id="name" value="{{$value->name}}">
-                  </div>
+<div class="container-xl py-5 ">
+    <div class="row ">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-6 ">
+        @foreach($registrate as $value)
+        <form action="/myprofileaction/{{$value->id}}" method="post">
+            <div class="row py-3">
+                    <label><center><h1 class="text-light">MY PROFILE</h1></center></label>
+                    
                 </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="email" name="email" id="email" value="{{$value->email}}">
-                  </div>
+                @csrf
+                <div class="row py-3">
+                    <label>NAME</label>
+                    <input type="text" name="name" class="form-control" id="name"  value="{{$value->name}}">
                 </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="password" name="password" id="password" value="{{$value->password}}">
-                  </div>
+                <div class="row py-3">
+                    <label>EMAIL</label>
+                    <input type="text" name="email" class="form-control" id="email"  value="{{$value->email}}">
                 </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="number" name="phno" id="phno" value="{{$value->phno}}">
-                  </div>
+                <div class="row py-3">
+                    <label>PASSWORD</label>
+                    <input type="password" name="pwd" class="form-control" id="pwd"  value="{{$value->pwd}}">
                 </div>
-                <div class="col-12">
-                  <button class="btn btn-primary py-3 px-5" type="submit">
-                    Submit
-                  </button>
+
+                <div class="row py-3">
+                    <label>PHONE NUMBER</label>
+                    <input type="number" name="phno" class="form-control" id="phno"  value="{{$value->phno}}">
+
                 </div>
-              </div>
+                <div class="row py-3">
+                    <input type="submit" name="submit" value="Register" id="reg" class="btn btn-primary btn-block w-100">
+                </div>
+
             </form>
             @endforeach
-            </center>
-            </body>
-          </div>
         </div>
-      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $('#frm').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 5
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                pwd: {
+                    required: true,
+                    minlength: 5
+                },
+                phno: {
+                    required: true,
+                    minlength: 8
+                }
+            }
+        })
+    </script>
 </div>
+
 @endsection

@@ -67,7 +67,7 @@
                     $('#subcategory').empty();
                     $('#subcategory').append($('<option>').text('Select Subcategory').attr('value', ''));
                     $.each(data, function(key, value) {
-                        $('#subcategory').append($('<option>').text(value.subcategoryname).attr('value', value.id));
+                        $('#subcategory').append($('<option>').text(value.subcategoryname).attr('value', value.subcategoryname));
                     });
                 }
             });
